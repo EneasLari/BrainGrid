@@ -6,8 +6,8 @@ using UnityEngine;
 /// Handles all audio playback and settings for the LetterGrid game.
 /// Responds only to events via LetterGridGameAudioEvents.
 /// </summary>
-public class LetterGridAudioManager : MonoBehaviour {
-    public static LetterGridAudioManager Instance;
+public class AudioManager : MonoBehaviour {
+    public static AudioManager Instance;
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource bgMusicSource;      // Assign in Inspector
@@ -67,37 +67,37 @@ public class LetterGridAudioManager : MonoBehaviour {
 
 
     void OnEnable() {
-        LetterGridGameAudioEvents.OnClick += PlayClick;
-        LetterGridGameAudioEvents.OnTileAdded += PlayTileAdd;
-        LetterGridGameAudioEvents.OnStartGame += PlayGameMusic; 
-        LetterGridGameAudioEvents.OnBackToMenu += PlayMenuMusic; 
-        LetterGridGameAudioEvents.OnLevelSuccess += PlayLevelSuccessSFX;     
-        LetterGridGameAudioEvents.OnMoveCorrect += PlayCorrectMoveSFX;  
-        LetterGridGameAudioEvents.OnMoveWrong += PlayWrongMoveSFX;  
-        LetterGridGameAudioEvents.OnTileFlip += PlayTileFlipSFX;  
-        LetterGridGameAudioEvents.OnMusicVolumeChanged += SetMusicVolume;
-        LetterGridGameAudioEvents.OnSFXVolumeChanged += SetSFXVolume;
-        LetterGridGameAudioEvents.OnMusicMuteChanged += SetMusicMute;
-        LetterGridGameAudioEvents.OnSFXMuteChanged += SetSFXMute;
-        LetterGridGameAudioEvents.OnAllMuteChanged += SetAllMute;
-        LetterGridGameAudioEvents.OnInitRequest += SendInitialSettingsState;
+        AudioEvents.OnClick += PlayClick;
+        AudioEvents.OnTileAdded += PlayTileAdd;
+        AudioEvents.OnStartGame += PlayGameMusic; 
+        AudioEvents.OnBackToMenu += PlayMenuMusic; 
+        AudioEvents.OnLevelSuccess += PlayLevelSuccessSFX;     
+        AudioEvents.OnMoveCorrect += PlayCorrectMoveSFX;  
+        AudioEvents.OnMoveWrong += PlayWrongMoveSFX;  
+        AudioEvents.OnTileFlip += PlayTileFlipSFX;  
+        AudioEvents.OnMusicVolumeChanged += SetMusicVolume;
+        AudioEvents.OnSFXVolumeChanged += SetSFXVolume;
+        AudioEvents.OnMusicMuteChanged += SetMusicMute;
+        AudioEvents.OnSFXMuteChanged += SetSFXMute;
+        AudioEvents.OnAllMuteChanged += SetAllMute;
+        AudioEvents.OnInitRequest += SendInitialSettingsState;
     }
 
     void OnDisable() {
-        LetterGridGameAudioEvents.OnClick -= PlayClick;
-        LetterGridGameAudioEvents.OnTileAdded -= PlayTileAdd;
-        LetterGridGameAudioEvents.OnStartGame -= PlayGameMusic; 
-        LetterGridGameAudioEvents.OnBackToMenu -= PlayMenuMusic; 
-        LetterGridGameAudioEvents.OnLevelSuccess -= PlayLevelSuccessSFX;
-        LetterGridGameAudioEvents.OnMoveCorrect -= PlayCorrectMoveSFX;
-        LetterGridGameAudioEvents.OnMoveWrong -= PlayWrongMoveSFX;
-        LetterGridGameAudioEvents.OnTileFlip -= PlayTileFlipSFX;
-        LetterGridGameAudioEvents.OnMusicVolumeChanged -= SetMusicVolume;
-        LetterGridGameAudioEvents.OnSFXVolumeChanged -= SetSFXVolume;
-        LetterGridGameAudioEvents.OnMusicMuteChanged -= SetMusicMute;
-        LetterGridGameAudioEvents.OnSFXMuteChanged -= SetSFXMute;
-        LetterGridGameAudioEvents.OnAllMuteChanged -= SetAllMute;
-        LetterGridGameAudioEvents.OnInitRequest -= SendInitialSettingsState;
+        AudioEvents.OnClick -= PlayClick;
+        AudioEvents.OnTileAdded -= PlayTileAdd;
+        AudioEvents.OnStartGame -= PlayGameMusic; 
+        AudioEvents.OnBackToMenu -= PlayMenuMusic; 
+        AudioEvents.OnLevelSuccess -= PlayLevelSuccessSFX;
+        AudioEvents.OnMoveCorrect -= PlayCorrectMoveSFX;
+        AudioEvents.OnMoveWrong -= PlayWrongMoveSFX;
+        AudioEvents.OnTileFlip -= PlayTileFlipSFX;
+        AudioEvents.OnMusicVolumeChanged -= SetMusicVolume;
+        AudioEvents.OnSFXVolumeChanged -= SetSFXVolume;
+        AudioEvents.OnMusicMuteChanged -= SetMusicMute;
+        AudioEvents.OnSFXMuteChanged -= SetSFXMute;
+        AudioEvents.OnAllMuteChanged -= SetAllMute;
+        AudioEvents.OnInitRequest -= SendInitialSettingsState;
     }
 
     private void Start() {
@@ -180,10 +180,10 @@ public class LetterGridAudioManager : MonoBehaviour {
     }
 
     private void SendInitialSettingsState() {
-        LetterGridGameAudioEvents.RaiseMusicVolumeInit(musicVolume);
-        LetterGridGameAudioEvents.RaiseSFXVolumeInit(sfxVolume);
-        LetterGridGameAudioEvents.RaiseMusicMuteInit(isMusicMuted);
-        LetterGridGameAudioEvents.RaiseSFXMuteInit(isSFXMuted);
+        AudioEvents.RaiseMusicVolumeInit(musicVolume);
+        AudioEvents.RaiseSFXVolumeInit(sfxVolume);
+        AudioEvents.RaiseMusicMuteInit(isMusicMuted);
+        AudioEvents.RaiseSFXMuteInit(isSFXMuted);
     }
 
     // --- Optionally, you can keep StopMusic private or remove if not used by events ---

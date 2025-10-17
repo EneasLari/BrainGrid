@@ -13,7 +13,7 @@ using UnityEngine.UI;
 /// TIP: Add this script to your base Button prefab to ensure all game buttons play consistent SFX.
 /// </summary>
 [RequireComponent(typeof(Button))]
-public class LetterGridUIButtonClickSFX : MonoBehaviour
+public class UIButtonClickSFX : MonoBehaviour
 {
     void Awake() {
         // Subscribe once; safer than adding listeners repeatedly
@@ -23,7 +23,7 @@ public class LetterGridUIButtonClickSFX : MonoBehaviour
     /// Raises the global UI click event for audio manager to play the SFX.
     /// </summary>
     private void RaiseClickSoundEvent() {
-        LetterGridGameAudioEvents.RaiseButtonClick();
+        AudioEvents.RaiseButtonClick();
     }
 
     void OnDestroy() {

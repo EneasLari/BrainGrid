@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LetterGridGameManager : MonoBehaviour {
-    public static LetterGridGameManager Instance { get; private set; }
+public class GameManager : MonoBehaviour {
+    public static GameManager Instance { get; private set; }
 
     [Header("⚙️ Difficulty Settings")]
     public int minWordLength = 3;
@@ -12,10 +12,10 @@ public class LetterGridGameManager : MonoBehaviour {
 
 
     [Header("🔗 Manager References")]
-    [SerializeField] public LetterGridWordManager wordManager;
-    [SerializeField] public LetterGridManager gridManager;
-    [SerializeField] public LetterGridView gridView;
-    [SerializeField] public LetterGridTimerManager timerManager;
+    [SerializeField] public GameLoop wordManager;
+    [SerializeField] public GridDataManager gridManager;
+    [SerializeField] public GridView gridView;
+    [SerializeField] public TimerManager timerManager;
 
     [Header("🕹 Game State")]
     public bool isGameActive { get; private set; } = false;

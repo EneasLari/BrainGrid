@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class LetterMenuManager : MonoBehaviour {
+public class MenuManager : MonoBehaviour {
     public GameObject mainMenuPanel;
     public GameObject settingsMenuPanel;
-    public GameObject inGameMenuPanel;
-    public GameObject hudPanel; // Your main game UI (score, timer, etc.)
+    public GameObject PauseGameMenuPanel;
+    public GameObject GamePanel; // Your main game UI (score, timer, etc.)
 
     public Button startGameButton;
     public Button quitButton;
     public Button resumeButton;
-    public Button mainMenuButton;
-    public Button backtoMainMenuButton;
+    public Button toMainMenuButton;
+    public Button backToMainMenuButton;
     public Button pauseButton;
     public Button settingsButton;
 
@@ -30,22 +30,22 @@ public class LetterMenuManager : MonoBehaviour {
             quitButton.onClick.AddListener(QuitGame);
         if (resumeButton != null)
             resumeButton.onClick.AddListener(ResumeGame);
-        if (mainMenuButton != null)
-            mainMenuButton.onClick.AddListener(ReturnToMainMenu);
-        if (backtoMainMenuButton != null)
-            backtoMainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        if (toMainMenuButton != null)
+            toMainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        if (backToMainMenuButton != null)
+            backToMainMenuButton.onClick.AddListener(ReturnToMainMenu);
         if (settingsButton != null)
             settingsButton.onClick.AddListener(SettingsMenu);
         if (pauseButton != null)
             pauseButton.onClick.AddListener(ShowInGameMenu);
         if (musicVolumeSlider != null)
-            musicVolumeSlider.onValueChanged.AddListener(LetterGridGameAudioEvents.RaiseMusicVolumeChanged);
+            musicVolumeSlider.onValueChanged.AddListener(AudioEvents.RaiseMusicVolumeChanged);
         if (sfxVolumeSlider != null)
-            sfxVolumeSlider.onValueChanged.AddListener(LetterGridGameAudioEvents.RaiseSFXVolumeChanged);
+            sfxVolumeSlider.onValueChanged.AddListener(AudioEvents.RaiseSFXVolumeChanged);
         if (musicMuteToggle != null)
-            musicMuteToggle.onValueChanged.AddListener(LetterGridGameAudioEvents.RaiseMusicMuteChanged);
+            musicMuteToggle.onValueChanged.AddListener(AudioEvents.RaiseMusicMuteChanged);
         if (sfxMuteToggle != null)
-            sfxMuteToggle.onValueChanged.AddListener(LetterGridGameAudioEvents.RaiseSFXMuteChanged);
+            sfxMuteToggle.onValueChanged.AddListener(AudioEvents.RaiseSFXMuteChanged);
 
 
     }
@@ -56,18 +56,18 @@ public class LetterMenuManager : MonoBehaviour {
 
     private void OnEnable() {
         // Subscribe to init values from the AudioManager
-        LetterGridGameAudioEvents.OnMusicVolumeInit += HandleMusicVolumeInit;
-        LetterGridGameAudioEvents.OnSFXVolumeInit += HandleSFXVolumeInit;
-        LetterGridGameAudioEvents.OnMusicMuteInit += HandleMusicMuteInit;
-        LetterGridGameAudioEvents.OnSFXMuteInit += HandleSFXMuteInit;
+        AudioEvents.OnMusicVolumeInit += HandleMusicVolumeInit;
+        AudioEvents.OnSFXVolumeInit += HandleSFXVolumeInit;
+        AudioEvents.OnMusicMuteInit += HandleMusicMuteInit;
+        AudioEvents.OnSFXMuteInit += HandleSFXMuteInit;
     }
 
     private void OnDisable() {
         // Unsubscribe
-        LetterGridGameAudioEvents.OnMusicVolumeInit -= HandleMusicVolumeInit;
-        LetterGridGameAudioEvents.OnSFXVolumeInit -= HandleSFXVolumeInit;
-        LetterGridGameAudioEvents.OnMusicMuteInit -= HandleMusicMuteInit;
-        LetterGridGameAudioEvents.OnSFXMuteInit -= HandleSFXMuteInit;
+        AudioEvents.OnMusicVolumeInit -= HandleMusicVolumeInit;
+        AudioEvents.OnSFXVolumeInit -= HandleSFXVolumeInit;
+        AudioEvents.OnMusicMuteInit -= HandleMusicMuteInit;
+        AudioEvents.OnSFXMuteInit -= HandleSFXMuteInit;
     }
 
     private void HandleMusicVolumeInit(float v) => musicVolumeSlider.value = v;
@@ -78,42 +78,42 @@ public class LetterMenuManager : MonoBehaviour {
     // MAIN MENU
     public void ShowMainMenu() {
         mainMenuPanel.SetActive(true);
-        inGameMenuPanel.SetActive(false);
-        hudPanel.SetActive(false);
+        PauseGameMenuPanel.SetActive(false);
+        GamePanel.SetActive(false);
         settingsMenuPanel.SetActive(false);
     }
 
     public void ShowSettingsMenu() {
         mainMenuPanel.SetActive(false);
-        inGameMenuPanel.SetActive(false);
-        hudPanel.SetActive(false);
+        PauseGameMenuPanel.SetActive(false);
+        GamePanel.SetActive(false);
         settingsMenuPanel.SetActive(true);
     }
 
     // GAME START
     public void StartGame() {
         mainMenuPanel.SetActive(false);
-        inGameMenuPanel.SetActive(false);
-        hudPanel.SetActive(true);
+        PauseGameMenuPanel.SetActive(false);
+        GamePanel.SetActive(true);
         settingsMenuPanel.SetActive(false);
-        LetterGridGameAudioEvents.RaiseStartGame();
-        LetterGridGameManager.Instance.ResetGameTime();
-        LetterGridGameManager.Instance.StartNewRoundAtCurrentLevel();
+        AudioEvents.RaiseStartGame();
+        GameManager.Instance.ResetGameTime();
+        GameManager.Instance.StartNewRoundAtCurrentLevel();
     }
 
     // IN-GAME MENU
     public void ShowInGameMenu() {
         isPaused = true;
-        LetterGridGameManager.Instance.PauseGameTime();
-        inGameMenuPanel.SetActive(true);
-        hudPanel.SetActive(false);
+        GameManager.Instance.PauseGameTime();
+        PauseGameMenuPanel.SetActive(true);
+        GamePanel.SetActive(false);
     }
 
     public void ResumeGame() {
         isPaused = false;
-        inGameMenuPanel.SetActive(false);
-        hudPanel.SetActive(true);
-        LetterGridGameManager.Instance.ResetGameTime();
+        PauseGameMenuPanel.SetActive(false);
+        GamePanel.SetActive(true);
+        GameManager.Instance.ResetGameTime();
     }
 
     public void QuitGame() {
@@ -128,7 +128,7 @@ public class LetterMenuManager : MonoBehaviour {
     public void SettingsMenu() {
         // You might want to reset game state here
         ShowSettingsMenu();
-        LetterGridGameAudioEvents.RequestInitSettings();
+        AudioEvents.RequestInitSettings();
     }
 
 }

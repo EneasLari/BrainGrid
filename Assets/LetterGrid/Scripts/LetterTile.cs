@@ -26,7 +26,7 @@ public class LetterData {
 
 }
 
-public class LetterGridLetterTile : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, ICanvasRaycastFilter {
+public class LetterTile : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, ICanvasRaycastFilter {
 
     public LetterData LetterData = new LetterData(-1,-1);
 
@@ -77,15 +77,15 @@ public class LetterGridLetterTile : MonoBehaviour, IPointerDownHandler, IPointer
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if (LetterGridGameManager.Instance.wordManager.IsShowingFeedback) return;
+        if (GameManager.Instance.wordManager.IsShowingFeedback) return;
 
-        if (!LetterGridGameManager.Instance.wordManager.IsUserSelecting) {
-            LetterGridGameManager.Instance.wordManager.StartSelection(this);
+        if (!GameManager.Instance.wordManager.IsUserSelecting) {
+            GameManager.Instance.wordManager.StartSelection(this);
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        LetterGridGameManager.Instance.wordManager.TrySelectHoveredTile(this);
+        GameManager.Instance.wordManager.TrySelectHoveredTile(this);
     }
 
     public bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera) {

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class LetterGridTimerManager : MonoBehaviour {
+public class TimerManager : MonoBehaviour {
     [Header("🕒 Timer Settings")]
     public TMP_Text timerText;
     public float roundDuration = 60f; // seconds
@@ -59,7 +59,7 @@ public class LetterGridTimerManager : MonoBehaviour {
         timerText.text = "0";
 
         // ✅ Use centralized game end logic
-        LetterGridGameManager.Instance.EndGame("Time's up! Try again.");
+        GameManager.Instance.EndGame("Time's up! Try again.");
     }
 
 }

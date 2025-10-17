@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LetterGridView : MonoBehaviour {
+public class GridView : MonoBehaviour {
 
     public enum GridFitMode {
         FitToCurrent, // cell size based on current grid size
@@ -70,7 +70,7 @@ public class LetterGridView : MonoBehaviour {
                 var text = tile.GetComponentInChildren<TMP_Text>();
                 if (text != null) text.text = letterGrid[r, c].TileLetter.ToString();
 
-                var letterTile = tile.GetComponent<LetterGridLetterTile>();
+                var letterTile = tile.GetComponent<LetterTile>();
                 letterTile.LetterData = letterGrid[r, c];
                 letterTile.SetCurrentColor(baseColor);
 
@@ -149,11 +149,11 @@ public class LetterGridView : MonoBehaviour {
             LetterTilePool.Instance.ReturnTile(tile);
     }
 
-    public LetterGridLetterTile GetTileAt(int row, int col) {
+    public LetterTile GetTileAt(int row, int col) {
         if (row < 0 || row >= GridSizeY || col < 0 || col >= GridSizeX) return null;
         int index = row * GridSizeX + col;
         if (index < 0 || index >= gridParent.childCount) return null;
-        return gridParent.GetChild(index).GetComponent<LetterGridLetterTile>();
+        return gridParent.GetChild(index).GetComponent<LetterTile>();
     }
 
     private void Update() {

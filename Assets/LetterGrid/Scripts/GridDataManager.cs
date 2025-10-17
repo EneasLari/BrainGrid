@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LetterGridManager : MonoBehaviour {
+public class GridDataManager : MonoBehaviour {
 
     [Header("📦 Grid Setup")]
     public int GridSizeX = 4;
@@ -110,15 +110,15 @@ public class LetterGridManager : MonoBehaviour {
 
         // --- pick how many words we want this round ---
         int targetCount = Random.Range(
-            LetterGridGameManager.Instance.minWordsToPlace,
-            LetterGridGameManager.Instance.maxWordsToPlace + 1
+            GameManager.Instance.minWordsToPlace,
+            GameManager.Instance.maxWordsToPlace + 1
         );
 
         // --- candidate pool filtered by length ---
         List<string> candidates = new();
         foreach (var w in validWords) {
-            if (w.Length >= LetterGridGameManager.Instance.minWordLength &&
-                w.Length <= LetterGridGameManager.Instance.maxWordLength) {
+            if (w.Length >= GameManager.Instance.minWordLength &&
+                w.Length <= GameManager.Instance.maxWordLength) {
                 candidates.Add(w.ToUpperInvariant());
             }
         }

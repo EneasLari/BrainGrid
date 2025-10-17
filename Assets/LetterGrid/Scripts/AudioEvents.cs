@@ -5,7 +5,7 @@ using UnityEngine;
 /// Event channel for all audio/game SFX triggers and settings.
 /// Only use these static events to communicate audio intent.
 /// </summary>
-public class LetterGridGameAudioEvents : MonoBehaviour {
+public class AudioEvents : MonoBehaviour {
     // ---- Gameplay SFX events ----
     public static event Action OnClick;
     public static event Action OnTileAdded;
